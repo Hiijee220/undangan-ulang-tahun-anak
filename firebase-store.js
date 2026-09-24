@@ -13,6 +13,7 @@ const app=initializeApp({
 const db=getFirestore(app);
 const contentRef=doc(db,'invitation','content');
 const adminEmail='remajasilo.rs@gmail.com';
+const canonical=value=>Array.isArray(value)?value.map(canonical):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(key=>[key,canonical(value[key])])):value;
 
 export async function loadInvitation(){
   const snapshot=await getDoc(contentRef);
@@ -37,7 +38,7 @@ export async function publishInvitation(content,expected){
   await runTransaction(db,async transaction=>{
     const snapshot=await transaction.get(contentRef);
     const current=snapshot.exists()?snapshot.data().content:expected;
-    if(JSON.stringify(current)!==JSON.stringify(expected))throw Error('Undangan sudah diperbarui dari perangkat lain. Unduh cadangan konsep, lalu muat ulang admin.');
+    if(JSON.stringify(canonical(current))!==JSON.stringify(canonical(expected)))throw Error('Undangan sudah diperbarui dari perangkat lain. Unduh cadangan konsep, lalu muat ulang admin.');
     transaction.set(contentRef,{content,revision:(snapshot.exists()?snapshot.data().revision||0:0)+1,updatedAt:Date.now()});
   });
 }
