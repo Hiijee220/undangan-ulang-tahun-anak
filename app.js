@@ -1,6 +1,6 @@
 'use strict';
 (async()=>{
-const safeURL=(url,protocols=['https:'])=>{try{const u=new URL(url,document.baseURI);return protocols.includes(u.protocol)?u.href:''}catch{return''}};
+const safeURL=(url,protocols=['https:'])=>{if(typeof url!=='string'||!url.trim())return '';try{const u=new URL(url,document.baseURI);return protocols.includes(u.protocol)?u.href:''}catch{return''}};
 let data;try{const response=await fetch('config.json',{cache:'no-store'});if(!response.ok)throw Error('config');data=await response.json()}catch{document.body.textContent='Undangan belum dapat dimuat. Coba segarkan halaman.';return}
 const get=path=>path.split('.').reduce((o,k)=>o?.[k],data)??'';
 const setText=(el,value)=>{el.textContent=String(value)};
