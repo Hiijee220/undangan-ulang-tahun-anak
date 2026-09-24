@@ -5,7 +5,7 @@
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 
 /* Spider-Man illustrations supplied for this invitation. */
-.cover{overflow-x:hidden;overflow-y:auto}.cover-figure{position:absolute;z-index:1;right:5%;bottom:9%;width:min(32vw,460px);aspect-ratio:557/359;transform-origin:55% -40%;animation:cover-swing 5.5s ease-in-out infinite alternate;filter:drop-shadow(0 22px 35px #07193980)}
+.cover{overflow-x:hidden;overflow-y:auto}.cover::before{inset:0}.cover-figure{position:absolute;z-index:1;right:5%;bottom:9%;width:min(32vw,460px);aspect-ratio:557/359;transform-origin:55% -40%;animation:cover-swing 5.5s ease-in-out infinite alternate;filter:drop-shadow(0 22px 35px #07193980)}
 .cover-figure img{width:100%;height:100%;object-fit:cover;border:7px solid #fff;border-radius:42% 38% 46% 40%;transform:rotate(-8deg)}
 .cover-inner{z-index:2}.cover-inner h1,.cover-inner .cover-kicker{text-shadow:0 4px 30px #0c285e}
 .portrait-frame{animation:hero-float 4.5s ease-in-out infinite;transform:rotate(6deg)}
