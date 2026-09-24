@@ -1,8 +1,69 @@
 {
-  "theme": {"red":"#d52735","blue":"#123b77","gold":"#ffd875","cream":"#fff7e8"},
-  "hero": {"eyebrow":"UNDANGAN ULANG TAHUN","name":"Nama Anak","age":"?","subtitle":"Petualangan hebat dimulai bersama teman-teman terbaik!","cover":"","portrait":""},
-  "invitation": {"greeting":"Halo, teman-teman!","message":"Dengan penuh sukacita, kami mengundangmu untuk merayakan hari ulang tahun buah hati kami. Kehadiranmu akan membuat hari istimewa ini semakin seru dan berkesan.","closing":"Kami tunggu kehadiranmu!","from":"Keluarga kami"},
-  "event": {"date":"","start":"","end":"","venue":"Nama tempat acara","address":"Alamat lengkap acara","map":"","dress":"Bebas rapi dengan sentuhan merah atau biru"},
-  "extras": {"galleryTitle":"Momen Si Kecil","gallery":[],"music":"","whatsapp":"","rsvpMessage":"Halo, saya akan hadir di ulang tahun {name}.","gift":"","note":"Doa dan kehadiranmu adalah hadiah terbaik bagi kami."},
-  "sections":{"countdown":true,"story":true,"gallery":true,"details":true,"rsvp":true,"gift":false}
+  "theme": {
+    "red": "#d52735",
+    "blue": "#123b77",
+    "gold": "#ffd875",
+    "cream": "#fff7e8"
+  },
+  "hero": {
+    "eyebrow": "UNDANGAN ULANG TAHUN",
+    "name": "Nama Anak",
+    "age": "?",
+    "subtitle": "Petualangan hebat dimulai bersama teman-teman terbaik!",
+    "cover": "",
+    "portrait": ""
+  },
+  "invitation": {
+    "greeting": "Halo, teman-teman!",
+    "message": "Dengan penuh sukacita, kami mengundangmu untuk merayakan hari ulang tahun buah hati kami. Kehadiranmu akan membuat hari istimewa ini semakin seru dan berkesan.",
+    "closing": "Kami tunggu kehadiranmu!",
+    "from": "Keluarga kami"
+  },
+  "event": {
+    "date": "",
+    "start": "",
+    "end": "",
+    "venue": "Nama tempat acara",
+    "address": "Alamat lengkap acara",
+    "map": "",
+    "dress": "Bebas rapi dengan sentuhan merah atau biru"
+  },
+  "extras": {
+    "galleryTitle": "Momen Si Kecil",
+    "gallery": [],
+    "music": "",
+    "whatsapp": "",
+    "rsvpMessage": "Halo, saya akan hadir di ulang tahun {name}.",
+    "gift": "",
+    "note": "Doa dan kehadiranmu adalah hadiah terbaik bagi kami."
+  },
+  "sections": {
+    "countdown": true,
+    "story": true,
+    "gallery": true,
+    "details": true,
+    "rsvp": true,
+    "gift": false
+  },
+  "copy": {
+    "coverTitle": "You're invited",
+    "coverAccent": "to the party!",
+    "coverIntro": "SEBUAH MISI SPESIAL UNTUKMU",
+    "coverHint": "Ketuk untuk memulai petualangan",
+    "heroLine": "HARI YANG",
+    "heroAccent": "LUAR BIASA",
+    "heroPrefix": "UNTUK",
+    "ticker": "✦  A SUPER SPECIAL DAY  ✦  LET'S CELEBRATE  ✦  A SUPER SPECIAL DAY  ✦  LET'S CELEBRATE  ✦",
+    "countdownTitle": "Petualangan dimulai dalam...",
+    "countdownNote": "Siapkan kostum terbaikmu!",
+    "eventTitle": "Mark your",
+    "eventAccent": "calendar!",
+    "eventIntro": "Temui kami di markas pesta untuk hari yang penuh tawa.",
+    "galleryIntro": "Beberapa momen kecil yang bikin hati besar.",
+    "rsvpTitle": "See you",
+    "rsvpAccent": "there, hero!",
+    "rsvpIntro": "Beritahu kami jika kamu bisa hadir. Sampai jumpa di hari spesial ini!",
+    "footerTitle": "Terima kasih,",
+    "footerAccent": "sampai jumpa!"
+  }
 }
