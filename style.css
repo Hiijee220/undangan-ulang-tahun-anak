@@ -3,3 +3,27 @@
 @media(max-width:760px){.section{padding:76px 24px}.nav-date{font-size:10px}.topbar{height:64px;padding:0 24px}.hero{grid-template-columns:1fr;text-align:center;padding:70px 24px 94px}.hero h2{font-size:clamp(45px,11vw,70px);margin:25px auto}.hero-content>p{margin:auto}.hero-actions{justify-content:center}.hero-art{min-height:400px;margin-top:32px}.portrait-frame{width:min(280px,70vw)}.portrait-default strong{font-size:52px}.comic-bubble{right:2%;font-size:27px}.event-grid{grid-template-columns:1fr}.gallery-grid{grid-template-columns:repeat(2,1fr)}.cover h1{font-size:clamp(50px,12vw,75px)}.orbit{font-size:55px}}
 @media(max-width:480px){.gallery-grid{grid-template-columns:1fr;max-width:310px;margin:40px auto 0}.clock{gap:7px}.clock div{padding:16px 2px;box-shadow:3px 4px 0 #172f5c}.clock strong{font-size:32px}.clock span{font-size:9px}.hero-art{min-height:330px}.hero-actions{gap:16px}.age-badge{font-size:10px}.event-card{padding:27px}.cover-kicker{font-size:16px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* Spider-Man illustrations supplied for this invitation. */
+.cover-figure{position:absolute;z-index:1;right:5%;bottom:9%;width:min(32vw,460px);aspect-ratio:557/359;transform-origin:55% -40%;animation:cover-swing 5.5s ease-in-out infinite alternate;filter:drop-shadow(0 22px 35px #07193980)}
+.cover-figure img{width:100%;height:100%;object-fit:cover;border:7px solid #fff;border-radius:42% 38% 46% 40%;transform:rotate(-8deg)}
+.cover-inner{z-index:2}.cover-inner h1,.cover-inner .cover-kicker{text-shadow:0 4px 30px #0c285e}
+.portrait-frame{animation:hero-float 4.5s ease-in-out infinite;transform:rotate(6deg)}
+.portrait-frame img{transition:transform .5s ease;object-position:center 45%}.portrait-frame:hover img{transform:scale(1.06)}
+.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:970px;margin-left:auto;margin-right:auto;gap:31px}
+.gallery-item{transform:rotate(-2deg);animation:photo-drift 4.8s ease-in-out infinite alternate;transition:box-shadow .3s}
+.gallery-item:nth-child(2n){transform:rotate(2deg);animation-delay:-2.2s;animation-name:photo-drift-even}
+.gallery-item img{aspect-ratio:16/10;object-fit:cover;object-position:center;transition:transform .45s ease,filter .45s ease}
+.gallery-item:nth-child(2) img{object-position:center 48%}
+.gallery-item:nth-child(n+3) img{aspect-ratio:4/5;object-fit:contain;background:#fff}
+.gallery-item:nth-child(4) img{background:#cbe8f0}
+.gallery-item:hover{box-shadow:12px 16px 0 #9db7df}.gallery-item:hover img{transform:scale(1.025);filter:saturate(1.14)}
+.gallery-item:nth-child(3){animation-name:photo-hang;transform-origin:50% -5%}
+@keyframes cover-swing{from{transform:rotate(-7deg) translateY(3px)}to{transform:rotate(4deg) translateY(-13px)}}
+@keyframes hero-float{0%,100%{transform:rotate(5deg) translateY(0)}50%{transform:rotate(7deg) translateY(-16px)}}
+@keyframes photo-drift{from{transform:rotate(-2deg) translateY(4px)}to{transform:rotate(-1deg) translateY(-7px)}}
+@keyframes photo-drift-even{from{transform:rotate(2deg) translateY(-4px)}to{transform:rotate(3deg) translateY(8px)}}
+@keyframes photo-hang{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+@media(max-width:760px){.cover-figure{width:min(58vw,300px);bottom:3%;right:-9%;opacity:.43}.cover-inner{padding-bottom:35px}.gallery-grid{gap:20px}}
+@media(max-width:480px){.gallery-grid{grid-template-columns:1fr;max-width:340px;gap:25px}.gallery-item img{aspect-ratio:16/10}.gallery-item:nth-child(n+3) img{aspect-ratio:4/5}.cover-figure{right:-15%;bottom:5%;width:65vw;opacity:.3}}
+@media(prefers-reduced-motion:reduce){.cover-figure,.portrait-frame,.gallery-item{animation:none!important}.gallery-item,.gallery-item:nth-child(2n),.gallery-item:nth-child(3){transform:none!important}}
