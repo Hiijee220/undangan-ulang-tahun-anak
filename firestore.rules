@@ -1,0 +1,20 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /invitation/content {
+      allow get: if true;
+      allow list, delete: if false;
+      allow create, update: if request.auth != null
+        && request.auth.token.firebase.sign_in_provider == 'google.com'
+        && request.auth.token.email == 'remajasilo.rs@gmail.com'
+        && request.auth.token.email_verified == true
+        && request.resource.data.keys().hasOnly(['content','revision','updatedAt'])
+        && request.resource.data.keys().hasAll(['content','revision','updatedAt'])
+        && request.resource.data.content is map
+        && request.resource.data.content.keys().hasAll(['hero','invitation','event','extras','sections','copy','theme'])
+        && request.resource.data.revision is int
+        && request.resource.data.updatedAt is int;
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}
