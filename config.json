@@ -10,8 +10,8 @@
     "name": "Nama Anak",
     "age": "?",
     "subtitle": "Petualangan hebat dimulai bersama teman-teman terbaik!",
-    "cover": "",
-    "portrait": ""
+    "cover": "images/spider-swing.jpeg",
+    "portrait": "images/spider-hero.jpeg"
   },
   "invitation": {
     "greeting": "Halo, teman-teman!",
@@ -30,7 +30,24 @@
   },
   "extras": {
     "galleryTitle": "Momen Si Kecil",
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "images/spider-swing.jpeg",
+        "caption": "Berayun menuju pesta!"
+      },
+      {
+        "src": "images/spider-relax.jpeg",
+        "caption": "Istirahat dulu sebelum misi"
+      },
+      {
+        "src": "images/spider-hang.jpeg",
+        "caption": "Siap menyapa dari atas"
+      },
+      {
+        "src": "images/spider-hero.jpeg",
+        "caption": "Pahlawan kecil hari ini"
+      }
+    ],
     "music": "",
     "whatsapp": "",
     "rsvpMessage": "Halo, saya akan hadir di ulang tahun {name}.",
