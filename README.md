@@ -11,6 +11,8 @@ Undangan bertema pahlawan laba-laba untuk GitHub Pages. Ubah setiap teks, jadwal
 
 ## Admin
 
-Konsep disimpan sementara di browser Anda. Klik **Unduh config.json** dan unggah ke repositori untuk menerbitkan tanpa token; atau gunakan **Terbitkan ke GitHub** dengan fine-grained personal access token yang dibatasi pada repositori ini dan `Contents: Read and write`. Token hanya digunakan di memori selama proses terbit dan dihapus dari kolom sesudahnya. Jangan memasukkannya ke repo atau mengirimkannya melalui chat.
+Buka `admin.html` pada perangkat pribadi. Hubungkan akun GitHub pada setiap sesi tab admin dengan fine-grained personal access token milik `Hiijee220`: pilih hanya repositori `undangan-ulang-tahun-anak`, izin `Contents: Read and write`, serta masa berlaku seperlunya. Token hanya tersimpan selama tab admin dibuka, sehingga Anda dapat menyimpan berkali-kali dalam satu sesi tanpa memasukkannya lagi. Token hilang ketika tab ditutup. Jangan masukkan token ke file repositori atau kirim melalui chat. Klik **Putuskan sambungan** untuk menghapusnya dari sesi.
+
+Edit teks, jadwal, lokasi, foto, musik, warna, atau bagian yang ditampilkan. Konsep tersimpan lokal. Klik **Simpan & perbarui undangan** untuk memperbarui `config.json` secara langsung melalui GitHub API. GitHub Pages akan menerbitkan versi baru setelah build selesai. Cadangan `config.json` bisa diunduh. Jika perubahan dibuat dari perangkat lain, admin akan mencegah penimpaan tanpa sengaja.
 
 GitHub Pages bersifat publik. Setiap foto, alamat, dan nomor WhatsApp di dalam `config.json` dapat dilihat pengunjung. Tamu bisa menggunakan tautan `?to=Nama%20Tamu` untuk sapaan yang disesuaikan. Konfirmasi hadir membuka WhatsApp, tanpa database. Musik harus memakai URL HTTPS berkas audio langsung, dan pemutaran otomatis memerlukan klik **Buka Undangan** sesuai kebijakan browser.
