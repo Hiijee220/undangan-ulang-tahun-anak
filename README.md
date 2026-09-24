@@ -9,10 +9,10 @@ Undangan bertema pahlawan laba-laba untuk GitHub Pages. Ubah setiap teks, jadwal
 3. Di **Settings → Pages**, pilih **Deploy from a branch**, branch `main`, folder `/ (root)`.
 4. Undangan: `https://hiijee220.github.io/undangan-ulang-tahun-anak/`; admin: `/admin.html`.
 
-## Admin
+## Admin Firebase
 
-Buka `admin.html` pada perangkat pribadi. Hubungkan akun GitHub pada setiap sesi tab admin dengan fine-grained personal access token milik `Hiijee220`: pilih hanya repositori `undangan-ulang-tahun-anak`, izin `Contents: Read and write`, serta masa berlaku seperlunya. Token hanya tersimpan selama tab admin dibuka, sehingga Anda dapat menyimpan berkali-kali dalam satu sesi tanpa memasukkannya lagi. Token hilang ketika tab ditutup. Jangan masukkan token ke file repositori atau kirim melalui chat. Klik **Putuskan sambungan** untuk menghapusnya dari sesi.
+Proyek Firebase: `undangan-ulang-tahun-anak` (Spark). Aplikasi Web dan Google Sign-In sudah aktif, domain `hiijee220.github.io` sudah diizinkan. Cloud Firestore perlu dibuat di lokasi Jakarta dan aturan `firestore.rules` harus diterbitkan sebelum cabang ini digabungkan ke `main`.
 
-Edit teks, jadwal, lokasi, foto, musik, warna, atau bagian yang ditampilkan. Konsep tersimpan lokal. Klik **Simpan & perbarui undangan** untuk memperbarui `config.json` secara langsung melalui GitHub API. GitHub Pages akan menerbitkan versi baru setelah build selesai. Cadangan `config.json` bisa diunduh. Jika perubahan dibuat dari perangkat lain, admin akan mencegah penimpaan tanpa sengaja.
+Hanya akun Google terverifikasi `remajasilo.rs@gmail.com` yang boleh menulis dokumen `invitation/content`; semua tamu boleh membaca dokumen itu. Admin login dengan Google lalu klik **Simpan & perbarui undangan**. Tidak ada token GitHub di browser. `config.json` tetap menjadi cadangan saat Firestore belum berisi dokumen atau sementara tidak dapat diakses. Saat admin pertama kali menyimpan, data awal diambil dari `config.json`.
 
-GitHub Pages bersifat publik. Setiap foto, alamat, dan nomor WhatsApp di dalam `config.json` dapat dilihat pengunjung. Tamu bisa menggunakan tautan `?to=Nama%20Tamu` untuk sapaan yang disesuaikan. Konfirmasi hadir membuka WhatsApp, tanpa database. Musik harus memakai URL HTTPS berkas audio langsung, dan pemutaran otomatis memerlukan klik **Buka Undangan** sesuai kebijakan browser.
+Foto hasil unggahan tersimpan sebagai data URL di dokumen Firestore. Total JSON dibatasi di bawah 950 KB agar sesuai batas ukuran dokumen. Foto, alamat, dan nomor WhatsApp yang diterbitkan adalah data publik. Tamu dapat memakai `?to=Nama%20Tamu` untuk sapaan. Musik harus memakai URL HTTPS berkas audio langsung.
