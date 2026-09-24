@@ -1,0 +1,8 @@
+{
+  "theme": {"red":"#d52735","blue":"#123b77","gold":"#ffd875","cream":"#fff7e8"},
+  "hero": {"eyebrow":"UNDANGAN ULANG TAHUN","name":"Nama Anak","age":"?","subtitle":"Petualangan hebat dimulai bersama teman-teman terbaik!","cover":"","portrait":""},
+  "invitation": {"greeting":"Halo, teman-teman!","message":"Dengan penuh sukacita, kami mengundangmu untuk merayakan hari ulang tahun buah hati kami. Kehadiranmu akan membuat hari istimewa ini semakin seru dan berkesan.","closing":"Kami tunggu kehadiranmu!","from":"Keluarga kami"},
+  "event": {"date":"","start":"","end":"","venue":"Nama tempat acara","address":"Alamat lengkap acara","map":"","dress":"Bebas rapi dengan sentuhan merah atau biru"},
+  "extras": {"galleryTitle":"Momen Si Kecil","gallery":[],"music":"","whatsapp":"","rsvpMessage":"Halo, saya akan hadir di ulang tahun {name}.","gift":"","note":"Doa dan kehadiranmu adalah hadiah terbaik bagi kami."},
+  "sections":{"countdown":true,"story":true,"gallery":true,"details":true,"rsvp":true,"gift":false}
+}
