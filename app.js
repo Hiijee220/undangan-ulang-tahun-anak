@@ -23,8 +23,8 @@ const audio=document.getElementById('music'),btn=document.getElementById('musicB
 const cover=document.getElementById('cover'),main=document.getElementById('main');
 const flyer=document.getElementById('scrollSpider'),flightWeb=document.getElementById('flightWeb'),webShadow=document.getElementById('flightWebShadow'),webThread=document.getElementById('flightWebThread');let flightFrame=0;
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-function updateFlight(){flightFrame=0;const visible=cover.hidden&&scrollY>=65&&!reducedMotion.matches;flyer.hidden=!visible;flightWeb.hidden=!visible;if(!visible)return;
-  const mobile=innerWidth<760,width=mobile?250:330,height=width*359/557,rope=Math.min(innerHeight*(mobile?.48:.57),mobile?430:570),anchorX=innerWidth*(mobile?.52:.54),phase=scrollY/Math.max(460,innerHeight*.8)*1.75,angle=.52*Math.sin(phase);
+function updateFlight(){flightFrame=0;const visible=cover.hidden&&scrollY>=65&&!reducedMotion.matches;flyer.hidden=!visible;flightWeb.toggleAttribute('hidden',!visible);if(!visible)return;
+  const mobile=innerWidth<760,width=mobile?250:330,height=width*359/557,rope=Math.min(innerHeight*(mobile?.35:.42),mobile?290:430),anchorX=innerWidth*(mobile?.9:.88),phase=scrollY/Math.max(460,innerHeight*.8)*1.75,angle=.43*Math.sin(phase);
   const handX=anchorX+Math.sin(angle)*rope,handY=-24+Math.cos(angle)*rope;
   flyer.style.left=Math.round(handX-width*.72)+'px';flyer.style.top=Math.round(handY-height*.54)+'px';flyer.style.setProperty('--swing-tilt',Math.round(-angle*24)+'deg');
   flightWeb.setAttribute('viewBox',`0 0 ${innerWidth} ${innerHeight}`);
