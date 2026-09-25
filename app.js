@@ -21,9 +21,16 @@ const phone=String(data.extras.whatsapp||'').replace(/\D/g,'');const rsvp=docume
 function tick(){const diff=valid?Math.max(0,start.getTime()-Date.now()):0;const vals=[Math.floor(diff/86400000),Math.floor(diff/3600000)%24,Math.floor(diff/60000)%60,Math.floor(diff/1000)%60];['days','hours','minutes','seconds'].forEach((id,i)=>document.getElementById(id).textContent=String(vals[i]).padStart(2,'0'));if(valid&&diff===0)document.getElementById('countdownNote').textContent='Hari istimewa telah tiba!'}tick();setInterval(tick,1000);
 const audio=document.getElementById('music'),btn=document.getElementById('musicButton'),music=safeURL(data.extras.music,['https:']);if(music){audio.src=music;btn.hidden=false;btn.addEventListener('click',async()=>{if(audio.paused){try{await audio.play();btn.classList.add('playing');btn.setAttribute('aria-label','Jeda musik')}catch{btn.title='Musik tidak dapat diputar. Gunakan tautan langsung berkas audio.'}}else{audio.pause();btn.classList.remove('playing');btn.setAttribute('aria-label','Putar musik')}})}
 const cover=document.getElementById('cover'),main=document.getElementById('main');
-const flyer=document.getElementById('scrollSpider');let flightFrame=0;
+const flyer=document.getElementById('scrollSpider'),flightWeb=document.getElementById('flightWeb'),webShadow=document.getElementById('flightWebShadow'),webThread=document.getElementById('flightWebThread');let flightFrame=0;
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-function updateFlight(){flightFrame=0;if(cover.hidden===false||reducedMotion.matches){flyer.hidden=true;return}const mobile=innerWidth<760,phase=scrollY/Math.max(500,innerHeight*.9)*1.65,swing=Math.sin(phase),arc=(1-Math.cos(phase))/2;flyer.hidden=scrollY<55;flyer.style.setProperty('--fly-x',String(Math.round((mobile?33:47)+(mobile?22:27)*swing)));flyer.style.setProperty('--fly-y',String(Math.round(14+39*arc)));flyer.style.setProperty('--fly-tilt',String(Math.round(-19+35*Math.cos(phase)))+'deg');flyer.style.setProperty('--fly-scale',String((.83+.17*arc).toFixed(2)))}
+function updateFlight(){flightFrame=0;const visible=cover.hidden&&scrollY>=65&&!reducedMotion.matches;flyer.hidden=!visible;flightWeb.hidden=!visible;if(!visible)return;
+  const mobile=innerWidth<760,width=mobile?250:330,height=width*359/557,rope=Math.min(innerHeight*(mobile?.48:.57),mobile?430:570),anchorX=innerWidth*(mobile?.52:.54),phase=scrollY/Math.max(460,innerHeight*.8)*1.75,angle=.52*Math.sin(phase);
+  const handX=anchorX+Math.sin(angle)*rope,handY=-24+Math.cos(angle)*rope;
+  flyer.style.left=Math.round(handX-width*.72)+'px';flyer.style.top=Math.round(handY-height*.54)+'px';flyer.style.setProperty('--swing-tilt',Math.round(-angle*24)+'deg');
+  flightWeb.setAttribute('viewBox',`0 0 ${innerWidth} ${innerHeight}`);
+  const thread=`M ${anchorX.toFixed(1)} -24 C ${(anchorX+Math.sin(angle)*11).toFixed(1)} ${(handY*.28).toFixed(1)}, ${(handX-Math.sin(angle)*13).toFixed(1)} ${(handY*.75).toFixed(1)}, ${handX.toFixed(1)} ${handY.toFixed(1)}`;
+  webShadow.setAttribute('d',thread);webThread.setAttribute('d',thread);
+}
 function queueFlight(){if(!flightFrame)flightFrame=requestAnimationFrame(updateFlight)}
 addEventListener('scroll',queueFlight,{passive:true});addEventListener('resize',queueFlight);reducedMotion.addEventListener('change',queueFlight);
 document.getElementById('open').addEventListener('click',async()=>{main.inert=false;cover.classList.add('closed');setTimeout(()=>{cover.hidden=true;queueFlight()},700);if(music){try{await audio.play();btn.classList.add('playing');btn.setAttribute('aria-label','Jeda musik')}catch{/* manual control remains visible */}}});
