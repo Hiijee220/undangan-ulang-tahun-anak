@@ -25,7 +25,7 @@ const flyer=document.getElementById('scrollSpider'),flightWeb=document.getElemen
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 function updateFlight(){flightFrame=0;const visible=cover.hidden&&scrollY>=65&&!reducedMotion.matches;flyer.hidden=!visible;flightWeb.toggleAttribute('hidden',!visible);if(!visible)return;
   const mobile=innerWidth<760,width=mobile?250:330,height=width*359/557,rope=Math.min(innerHeight*(mobile?.35:.42),mobile?290:430),anchorX=innerWidth*(mobile?.9:.88),phase=scrollY/Math.max(460,innerHeight*.8)*1.75,angle=.43*Math.sin(phase);
-  const handX=anchorX+Math.sin(angle)*rope,handY=-24+Math.cos(angle)*rope;
+  const handX=Math.min(innerWidth-(mobile?28:80),anchorX+Math.sin(angle)*rope),handY=-24+Math.cos(angle)*rope;
   flyer.style.left=Math.round(handX-width*.72)+'px';flyer.style.top=Math.round(handY-height*.54)+'px';flyer.style.setProperty('--swing-tilt',Math.round(-angle*24)+'deg');
   flightWeb.setAttribute('viewBox',`0 0 ${innerWidth} ${innerHeight}`);
   const thread=`M ${anchorX.toFixed(1)} -24 C ${(anchorX+Math.sin(angle)*11).toFixed(1)} ${(handY*.28).toFixed(1)}, ${(handX-Math.sin(angle)*13).toFixed(1)} ${(handY*.75).toFixed(1)}, ${handX.toFixed(1)} ${handY.toFixed(1)}`;
