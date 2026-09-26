@@ -82,3 +82,16 @@ body:has(.scroll-spider:not([hidden])) .intro::after{opacity:.12}
 .cover{background:linear-gradient(90deg,#102e64ee,#102e64b9),url('images/spider-swing.jpeg') center/cover,var(--blue)}
 @media(max-width:760px){.event{background-size:auto,auto 57%;background-position:center,right bottom}.dangling-spider{width:30px;height:28px}.spider-two{width:25px;height:24px}}
 html.auto-reading{scroll-behavior:auto!important}
+
+/* Composite motion only: avoid chasing every scroll step with CSS position easing. */
+.scroll-spider,.real-spider{left:0;top:0;transition:none!important;will-change:transform;transform:translate3d(0,0,0)}
+.dangling-spider{transition:none!important;will-change:transform}
+
+/* Spread the supplied Spider-Man artwork through the invitation scenery. */
+.cover::after{content:"";position:absolute;right:-8%;bottom:0;width:min(58vw,690px);height:58%;background:url('images/spider-comic-swing.jpeg') center/cover no-repeat;opacity:.46;mix-blend-mode:screen;mask-image:radial-gradient(ellipse at 53% 58%,#000 18%,transparent 78%);pointer-events:none}
+.countdown::after{content:"";position:absolute;left:-3%;bottom:-17%;width:min(35vw,410px);aspect-ratio:1;background:url('images/spider-webshoot.jpeg') center/contain no-repeat;opacity:.42;mix-blend-mode:multiply;mask-image:radial-gradient(ellipse,#000 34%,transparent 73%);pointer-events:none}
+.event::after{content:"";position:absolute;left:-10%;bottom:-18%;width:min(37vw,440px);aspect-ratio:1;background:url('images/spider-comic-hero.jpeg') center/contain no-repeat;opacity:.25;mix-blend-mode:multiply;mask-image:radial-gradient(ellipse,#000 34%,transparent 76%);pointer-events:none}
+.gallery::after{content:"";position:absolute;right:-5%;top:2%;width:min(27vw,330px);aspect-ratio:367/549;background:url('images/spider-hang.jpeg') right top/contain no-repeat;opacity:.58;mix-blend-mode:multiply;mask-image:linear-gradient(#000 70%,transparent);pointer-events:none}
+.gift{position:relative;overflow:hidden}.gift::before{content:"";position:absolute;left:-8%;top:-12%;width:min(34vw,410px);height:115%;background:url('images/spider-hero.jpeg') center/cover no-repeat;opacity:.32;mask-image:radial-gradient(ellipse,#000 20%,transparent 77%);pointer-events:none}.gift>*{position:relative;z-index:1}
+footer{position:relative;overflow:hidden}footer::before{content:"";position:absolute;right:-4%;bottom:-20%;width:min(50vw,570px);aspect-ratio:588/330;background:url('images/spider-comic-swing.jpeg') center/cover no-repeat;opacity:.4;mix-blend-mode:screen;mask-image:radial-gradient(ellipse,#000 26%,transparent 78%);pointer-events:none}footer>*{position:relative;z-index:1}
+@media(max-width:760px){.cover::after{width:90vw;right:-30%;height:42%;opacity:.34}.countdown::after{width:55vw;left:-20%;opacity:.34}.event::after{width:62vw;left:-25%;bottom:-8%;opacity:.18}.gallery::after{width:40vw;right:-17%;opacity:.34}.gift::before{width:65vw;left:-30%;opacity:.2}footer::before{width:95vw;right:-37%;opacity:.28}.hero::after{opacity:.31}}
