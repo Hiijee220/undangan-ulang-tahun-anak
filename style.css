@@ -58,7 +58,6 @@ body:has(.scroll-spider:not([hidden])) .intro::after{opacity:.12}
 .real-spider{position:fixed;left:0;top:0;width:188px;aspect-ratio:365/547;z-index:8;pointer-events:none;transform-origin:48% 47%;transform:rotate(var(--real-tilt,0deg));transition:left .12s ease-out,top .12s ease-out,transform .12s ease-out;filter:drop-shadow(5px 9px 8px #0b1a4570)}
 .real-spider svg{display:block;width:100%;height:100%}
 /* Retain the complete supplied photograph, feathering its sky into the scenery. */
-#realCutout path{d:path('M 0 0 H 365 V 547 H 0 Z')}
 .real-spider svg{mask-image:radial-gradient(ellipse 65% 51% at 48% 54%,#000 57%,transparent 95%)}
 .dangling-spiders{position:fixed;inset:0;z-index:6;pointer-events:none;transform:translateY(var(--spider-shift,0px));transition:transform .16s ease-out}
 .dangling-spider{position:absolute;top:0;font-family:Georgia,serif;font-size:28px;color:#14223b;text-shadow:1px 2px 2px #fff;transform:translateY(90px);animation:spider-dangle 3s ease-in-out infinite alternate}
