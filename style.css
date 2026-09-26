@@ -47,3 +47,22 @@ body:has(.scroll-spider:not([hidden])) .intro::after{opacity:.12}
 @keyframes hang-greet{from{transform:rotate(-3deg)}to{transform:rotate(3deg) translateY(10px)}}
 @media(max-width:760px){.cover-figure{right:-35%;bottom:0;width:115vw;opacity:.42}.custom-cover-photo{width:28vw;left:-7%;bottom:4%;opacity:.42}.hero::before{width:110%;right:-35%;opacity:.19}.intro::after{right:-120px;top:8px;width:280px;opacity:.55}.countdown::before{width:100%;opacity:.33}.event::before{width:70vw;opacity:.13}.gallery::before{width:110vw;opacity:.16}.rsvp::after{right:-120px;bottom:-24%;width:350px;opacity:.27}.scroll-spider{width:250px}}
 @media(prefers-reduced-motion:reduce){.scroll-spider,.flight-web{display:none!important}.intro::after,.rsvp::after{animation:none!important}}
+
+/* New supplied artwork: comic panels form the scenery, not the child's portrait. */
+.cover{background:linear-gradient(90deg,#102e64ee,#102e64c9),url('images/spider-comic-swing.jpeg') 55% 45%/cover,var(--blue)}
+.hero::after{content:"";position:absolute;left:-8%;bottom:-9%;width:min(40vw,490px);aspect-ratio:1;background:url('images/spider-webshoot.jpeg') center/contain no-repeat;opacity:.33;mix-blend-mode:screen;mask-image:radial-gradient(ellipse,#000 34%,transparent 74%);pointer-events:none}
+.intro{background:linear-gradient(90deg,#fff7e8ee,#fff7e8d9),url('images/spider-comic-hero.jpeg') right center/auto 95% no-repeat}
+.event{background:linear-gradient(90deg,#fff7e8f5,#fff7e8bc),url('images/spider-comic-swing.jpeg') right bottom/auto 88% no-repeat}
+.gallery{background:#e6f0fa url('images/spider-webshoot.jpeg') right bottom/auto 65% no-repeat;background-blend-mode:screen}
+.gift{background:linear-gradient(90deg,#fff7e8fa,#fff7e8b8),url('images/spider-real-flight.jpeg') right center/auto 100% no-repeat}
+.real-spider{position:fixed;left:0;top:0;width:188px;aspect-ratio:365/547;z-index:8;pointer-events:none;transform-origin:48% 47%;transform:rotate(var(--real-tilt,0deg));transition:left .12s ease-out,top .12s ease-out,transform .12s ease-out;filter:drop-shadow(5px 9px 8px #0b1a4570)}
+.real-spider svg{display:block;width:100%;height:100%}
+.dangling-spiders{position:fixed;inset:0;z-index:6;pointer-events:none;transform:translateY(var(--spider-shift,0px));transition:transform .16s ease-out}
+.dangling-spider{position:absolute;top:0;font-family:Georgia,serif;font-size:28px;color:#14223b;text-shadow:1px 2px 2px #fff;transform:translateY(90px);animation:spider-dangle 3s ease-in-out infinite alternate}
+.dangling-spider::before{content:"";position:absolute;bottom:19px;left:50%;width:1px;height:130px;background:linear-gradient(#fff9,#192f50);box-shadow:1px 0 #fff9;transform:translateX(-50%)}
+.spider-one{left:7%}.spider-two{right:11%;top:16%;font-size:21px;animation-delay:-1.3s}.spider-three{left:55%;top:37%;font-size:16px;animation-delay:-2.1s}
+@keyframes spider-dangle{from{transform:translateY(68px) rotate(-9deg)}to{transform:translateY(104px) rotate(8deg)}}
+.player-controls{position:fixed;right:18px;bottom:max(18px,env(safe-area-inset-bottom));z-index:12;display:flex;align-items:center;gap:9px}
+.player-controls button{position:static;box-shadow:3px 4px 0 #123b7755}.auto-scroll-button{height:48px;border:2px solid var(--blue);border-radius:24px;padding:0 15px;background:#fff;color:var(--blue);font-size:13px;font-weight:800;white-space:nowrap}.auto-scroll-button:focus-visible,.music-button:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+@media(max-width:760px){.hero::after{width:70vw;left:-24%;opacity:.24}.intro{background-size:auto,auto 58%;background-position:center,right bottom}.event{background-size:auto,auto 57%;background-position:center,right bottom}.gift{background-size:auto,auto 65%;background-position:center,right bottom}.real-spider{width:132px}.spider-three{display:none}.dangling-spider{font-size:21px}.player-controls{right:12px;bottom:max(12px,env(safe-area-inset-bottom))}}
+@media(prefers-reduced-motion:reduce){.real-spider,.dangling-spiders{display:none!important}}
