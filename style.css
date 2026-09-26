@@ -81,3 +81,4 @@ body:has(.scroll-spider:not([hidden])) .intro::after{opacity:.12}
 .event{background:linear-gradient(90deg,#fff7e8f8,#fff7e8d5),url('images/spider-webshoot.jpeg') right bottom/auto 88% no-repeat}
 .cover{background:linear-gradient(90deg,#102e64ee,#102e64b9),url('images/spider-swing.jpeg') center/cover,var(--blue)}
 @media(max-width:760px){.event{background-size:auto,auto 57%;background-position:center,right bottom}.dangling-spider{width:30px;height:28px}.spider-two{width:25px;height:24px}}
+html.auto-reading{scroll-behavior:auto!important}
