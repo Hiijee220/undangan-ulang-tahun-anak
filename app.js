@@ -19,19 +19,38 @@ const calendar=document.getElementById('calendarLink');if(valid){const utc=date=
 const map=document.getElementById('mapLink');map.href=safeURL(data.event.map)||`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.event.venue+' '+data.event.address)}`;
 const phone=String(data.extras.whatsapp||'').replace(/\D/g,'');const rsvp=document.getElementById('rsvpLink');if(phone){rsvp.href=`https://wa.me/${phone}?text=${encodeURIComponent((data.extras.rsvpMessage||'Halo, saya akan hadir di ulang tahun {name}.').replaceAll('{name}',data.hero.name)+' Dari: '+invitee)}`}else{rsvp.hidden=true;document.getElementById('rsvpHint').textContent='Kontak konfirmasi akan segera tersedia.'}
 function tick(){const diff=valid?Math.max(0,start.getTime()-Date.now()):0;const vals=[Math.floor(diff/86400000),Math.floor(diff/3600000)%24,Math.floor(diff/60000)%60,Math.floor(diff/1000)%60];['days','hours','minutes','seconds'].forEach((id,i)=>document.getElementById(id).textContent=String(vals[i]).padStart(2,'0'));if(valid&&diff===0)document.getElementById('countdownNote').textContent='Hari istimewa telah tiba!'}tick();setInterval(tick,1000);
-const audio=document.getElementById('music'),btn=document.getElementById('musicButton'),music=safeURL(data.extras.music,['https:']);if(music){audio.src=music;btn.hidden=false;btn.addEventListener('click',async()=>{if(audio.paused){try{await audio.play();btn.classList.add('playing');btn.setAttribute('aria-label','Jeda musik')}catch{btn.title='Musik tidak dapat diputar. Gunakan tautan langsung berkas audio.'}}else{audio.pause();btn.classList.remove('playing');btn.setAttribute('aria-label','Putar musik')}})}
+const audio=document.getElementById('music'),btn=document.getElementById('musicButton'),music=safeURL(data.extras.music,['https:']);if(music)audio.src=music;
+let musicContext,musicTimer,musicStep=0,musicPlaying=false;
+const melody=[523.25,659.25,783.99,659.25,698.46,783.99,880,783.99,659.25,587.33,659.25,523.25,587.33,659.25,523.25,392];
+function playNote(frequency){if(!musicContext)return;const now=musicContext.currentTime,voice=musicContext.createOscillator(),gain=musicContext.createGain();voice.type='sine';voice.frequency.setValueAtTime(frequency,now);gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.075,now+.025);gain.gain.exponentialRampToValueAtTime(.0001,now+.29);voice.connect(gain).connect(musicContext.destination);voice.start(now);voice.stop(now+.31)}
+async function startMusic(){try{if(music){await audio.play()}else{const AudioContextType=window.AudioContext||window.webkitAudioContext;if(!AudioContextType)throw Error('Audio tidak tersedia');musicContext??=new AudioContextType();await musicContext.resume();if(!musicTimer){playNote(melody[musicStep++%melody.length]);musicTimer=setInterval(()=>playNote(melody[musicStep++%melody.length]),325)}}musicPlaying=true;btn.classList.add('playing');btn.setAttribute('aria-label','Jeda musik')}catch{btn.title='Musik diblokir browser. Ketuk lagi untuk mencoba.'}}
+function stopMusic(){audio.pause();if(musicTimer){clearInterval(musicTimer);musicTimer=0}musicContext?.suspend();musicPlaying=false;btn.classList.remove('playing');btn.setAttribute('aria-label','Putar musik')}
+btn.addEventListener('click',()=>musicPlaying?stopMusic():startMusic());
 const cover=document.getElementById('cover'),main=document.getElementById('main');
-const flyer=document.getElementById('scrollSpider'),flightWeb=document.getElementById('flightWeb'),webShadow=document.getElementById('flightWebShadow'),webThread=document.getElementById('flightWebThread');let flightFrame=0;
+const flyer=document.getElementById('scrollSpider'),realFlyer=document.getElementById('realSpider'),flightWeb=document.getElementById('flightWeb'),webShadow=document.getElementById('flightWebShadow'),webThread=document.getElementById('flightWebThread'),realShadow=document.getElementById('realWebShadow'),realThread=document.getElementById('realWebThread'),spiders=document.querySelector('.dangling-spiders');let flightFrame=0;
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-function updateFlight(){flightFrame=0;const visible=cover.hidden&&scrollY>=65&&!reducedMotion.matches;flyer.hidden=!visible;flightWeb.toggleAttribute('hidden',!visible);if(!visible)return;
+function updateFlight(){flightFrame=0;const visible=cover.hidden&&scrollY>=65&&!reducedMotion.matches;flyer.hidden=!visible;realFlyer.hidden=!visible;spiders.hidden=!visible;flightWeb.toggleAttribute('hidden',!visible);if(!visible)return;
   const mobile=innerWidth<760,width=mobile?250:330,height=width*359/557,rope=Math.min(innerHeight*(mobile?.35:.42),mobile?290:430),anchorX=innerWidth*(mobile?.9:.88),phase=scrollY/Math.max(460,innerHeight*.8)*1.75,angle=.43*Math.sin(phase);
   const handX=Math.min(innerWidth-(mobile?28:80),anchorX+Math.sin(angle)*rope),handY=-24+Math.cos(angle)*rope;
   flyer.style.left=Math.round(handX-width*.72)+'px';flyer.style.top=Math.round(handY-height*.54)+'px';flyer.style.setProperty('--swing-tilt',Math.round(-angle*24)+'deg');
   flightWeb.setAttribute('viewBox',`0 0 ${innerWidth} ${innerHeight}`);
   const thread=`M ${anchorX.toFixed(1)} -24 C ${(anchorX+Math.sin(angle)*11).toFixed(1)} ${(handY*.28).toFixed(1)}, ${(handX-Math.sin(angle)*13).toFixed(1)} ${(handY*.75).toFixed(1)}, ${handX.toFixed(1)} ${handY.toFixed(1)}`;
   webShadow.setAttribute('d',thread);webThread.setAttribute('d',thread);
+  const realWidth=mobile?132:188,realHeight=realWidth*547/365,realAnchor=innerWidth*(mobile?.17:.23),realPhase=scrollY/Math.max(520,innerHeight*.9),realAngle=-.28*Math.sin(realPhase*1.27+.8),realRope=Math.min(innerHeight*.45,390);
+  const realHandX=realAnchor+Math.sin(realAngle)*realRope,realHandY=-30+Math.cos(realAngle)*realRope+Math.sin(realPhase*.4)*15;
+  realFlyer.style.left=Math.round(realHandX-realWidth*.48)+'px';realFlyer.style.top=Math.round(realHandY-realHeight*.47)+'px';realFlyer.style.setProperty('--real-tilt',Math.round(-realAngle*33)+'deg');
+  const realPath=`M ${realAnchor.toFixed(1)} -30 Q ${(realAnchor+Math.sin(realAngle)*22).toFixed(1)} ${(realHandY*.48).toFixed(1)} ${realHandX.toFixed(1)} ${realHandY.toFixed(1)}`;
+  realShadow.setAttribute('d',realPath);realThread.setAttribute('d',realPath);
+  spiders.style.setProperty('--spider-shift',`${Math.min(135,scrollY*.13).toFixed(0)}px`);
 }
 function queueFlight(){if(!flightFrame)flightFrame=requestAnimationFrame(updateFlight)}
 addEventListener('scroll',queueFlight,{passive:true});addEventListener('resize',queueFlight);reducedMotion.addEventListener('change',queueFlight);
-document.getElementById('open').addEventListener('click',async()=>{main.inert=false;cover.classList.add('closed');setTimeout(()=>{cover.hidden=true;queueFlight()},700);if(music){try{await audio.play();btn.classList.add('playing');btn.setAttribute('aria-label','Jeda musik')}catch{/* manual control remains visible */}}});
+const autoBtn=document.getElementById('autoScrollButton');let autoFrame=0,lastFrame=0,autoScrolling=false;
+function stopAuto(){autoScrolling=false;cancelAnimationFrame(autoFrame);autoFrame=0;lastFrame=0;autoBtn.textContent='▶ Scroll';autoBtn.setAttribute('aria-label','Lanjutkan scroll otomatis');autoBtn.setAttribute('aria-pressed','false')}
+function autoTick(time){if(!autoScrolling)return;if(lastFrame){const amount=Math.min(55,(time-lastFrame)*.035);window.scrollBy(0,amount);if(scrollY+innerHeight>=document.documentElement.scrollHeight-3){stopAuto();return}}lastFrame=time;autoFrame=requestAnimationFrame(autoTick)}
+function startAuto(){if(reducedMotion.matches)return;autoScrolling=true;autoBtn.textContent='Ⅱ Scroll';autoBtn.setAttribute('aria-label','Jeda scroll otomatis');autoBtn.setAttribute('aria-pressed','true');autoFrame=requestAnimationFrame(autoTick)}
+autoBtn.addEventListener('click',()=>autoScrolling?stopAuto():startAuto());
+for(const type of ['wheel','touchstart','keydown'])addEventListener(type,event=>{if(type==='keydown'&&!['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(event.key))return;if(autoScrolling)stopAuto()},{passive:true});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(autoScrolling)stopAuto();if(musicPlaying)stopMusic()}});
+document.getElementById('open').addEventListener('click',()=>{main.inert=false;cover.classList.add('closed');btn.hidden=false;autoBtn.hidden=false;startMusic();setTimeout(()=>{cover.hidden=true;queueFlight();if(!window.__INVITATION_PREVIEW__&&!reducedMotion.matches)startAuto()},850)});
 })();
