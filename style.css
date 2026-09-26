@@ -69,3 +69,16 @@ body:has(.scroll-spider:not([hidden])) .intro::after{opacity:.12}
 .player-controls button{position:static;box-shadow:3px 4px 0 #123b7755}.auto-scroll-button{height:48px;border:2px solid var(--blue);border-radius:24px;padding:0 15px;background:#fff;color:var(--blue);font-size:13px;font-weight:800;white-space:nowrap}.auto-scroll-button:focus-visible,.music-button:focus-visible{outline:3px solid var(--red);outline-offset:3px}
 @media(max-width:760px){.hero::after{width:70vw;left:-24%;opacity:.24}.intro{background-size:auto,auto 58%;background-position:center,right bottom}.event{background-size:auto,auto 57%;background-position:center,right bottom}.gift{background-size:auto,auto 65%;background-position:center,right bottom}.real-spider{width:132px}.spider-three{display:none}.dangling-spider{font-size:21px}.player-controls{right:12px;bottom:max(12px,env(safe-area-inset-bottom))}}
 @media(prefers-reduced-motion:reduce){.real-spider,.dangling-spiders{display:none!important}}
+
+/* Cleaner character edges and illustrated spiders hanging from live-length silk. */
+.real-spider svg{mask-image:none;overflow:visible}
+.real-spider{filter:drop-shadow(0 8px 5px #10264180)}
+.dangling-spiders{transform:none;transition:none}
+.dangling-spider{top:0;width:42px;height:40px;display:block;color:#101724;font-size:0;text-shadow:none;transform:translateY(var(--drop,90px));animation:none;transition:transform .16s ease-out;filter:drop-shadow(1px 2px 2px #fff9)}
+.dangling-spider svg{width:100%;height:100%;display:block;transform-origin:50% 0;animation:spider-dangle-real 2.6s ease-in-out infinite alternate}
+.dangling-spider::before{bottom:calc(100% - 14px);height:calc(var(--drop,90px) + 6px);width:2px;background:linear-gradient(90deg,#6f8baa,#fff,#8da0b7);box-shadow:0 0 2px #fff}
+.spider-two{font-size:0;width:34px;height:33px;top:0}.spider-three{font-size:0;width:25px;height:25px;top:0}
+@keyframes spider-dangle-real{from{transform:rotate(-10deg)}to{transform:rotate(9deg)}}
+.event{background:linear-gradient(90deg,#fff7e8f8,#fff7e8d5),url('images/spider-webshoot.jpeg') right bottom/auto 88% no-repeat}
+.cover{background:linear-gradient(90deg,#102e64ee,#102e64b9),url('images/spider-swing.jpeg') center/cover,var(--blue)}
+@media(max-width:760px){.event{background-size:auto,auto 57%;background-position:center,right bottom}.dangling-spider{width:30px;height:28px}.spider-two{width:25px;height:24px}}
