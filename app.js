@@ -28,6 +28,10 @@ function stopMusic(){audio.pause();if(musicTimer){clearInterval(musicTimer);musi
 btn.addEventListener('click',()=>musicPlaying?stopMusic():startMusic());
 const cover=document.getElementById('cover'),main=document.getElementById('main');
 const flyer=document.getElementById('scrollSpider'),realFlyer=document.getElementById('realSpider'),flightWeb=document.getElementById('flightWeb'),webShadow=document.getElementById('flightWebShadow'),webThread=document.getElementById('flightWebThread'),realShadow=document.getElementById('realWebShadow'),realThread=document.getElementById('realWebThread'),spiders=document.querySelector('.dangling-spiders');let flightFrame=0;
+// Remove the pale sky in the supplied photo at render time, keeping the original file untouched.
+const realSvg=realFlyer.querySelector('svg'),svgNS='http://www.w3.org/2000/svg',skyFilter=document.createElementNS(svgNS,'filter'),keyMatrix=document.createElementNS(svgNS,'feColorMatrix');skyFilter.id='skyKey';skyFilter.setAttribute('x','-20%');skyFilter.setAttribute('y','-20%');skyFilter.setAttribute('width','140%');skyFilter.setAttribute('height','140%');keyMatrix.setAttribute('type','matrix');keyMatrix.setAttribute('values','1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -.56 -.56 -.56 0 1.50');skyFilter.append(keyMatrix);realSvg.querySelector('defs').append(skyFilter);realSvg.querySelector('image').setAttribute('filter','url(#skyKey)');
+const spiderArt='<svg viewBox="0 0 80 74" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"><path d="M31 37 16 25 3 29 M30 42 15 41 5 55 M31 48 17 58 13 72 M49 37 64 25 77 29 M50 42 65 41 75 55 M49 48 63 58 67 72 M32 34 22 15 12 12 M48 34 58 15 68 12"/></g><ellipse cx="40" cy="47" rx="15" ry="18" fill="currentColor"/><circle cx="40" cy="28" r="10" fill="currentColor"/><path d="M32 22q6-7 14-1" stroke="#fff7" stroke-width="2" fill="none"/><circle cx="37" cy="26" r="1.5" fill="#fff"/><circle cx="44" cy="26" r="1.5" fill="#fff"/></svg>';
+spiders.querySelectorAll('.dangling-spider').forEach(el=>{el.innerHTML=spiderArt});
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 function updateFlight(){flightFrame=0;const visible=cover.hidden&&scrollY>=65&&!reducedMotion.matches;flyer.hidden=!visible;realFlyer.hidden=!visible;spiders.hidden=!visible;flightWeb.toggleAttribute('hidden',!visible);if(!visible)return;
   const mobile=innerWidth<760,width=mobile?250:330,height=width*359/557,rope=Math.min(innerHeight*(mobile?.35:.42),mobile?290:430),anchorX=innerWidth*(mobile?.9:.88),phase=scrollY/Math.max(460,innerHeight*.8)*1.75,angle=.43*Math.sin(phase);
@@ -41,16 +45,16 @@ function updateFlight(){flightFrame=0;const visible=cover.hidden&&scrollY>=65&&!
   realFlyer.style.left=Math.round(realHandX-realWidth*.48)+'px';realFlyer.style.top=Math.round(realHandY-realHeight*.47)+'px';realFlyer.style.setProperty('--real-tilt',Math.round(-realAngle*33)+'deg');
   const realPath=`M ${realAnchor.toFixed(1)} -30 Q ${(realAnchor+Math.sin(realAngle)*22).toFixed(1)} ${(realHandY*.48).toFixed(1)} ${realHandX.toFixed(1)} ${realHandY.toFixed(1)}`;
   realShadow.setAttribute('d',realPath);realThread.setAttribute('d',realPath);
-  spiders.style.setProperty('--spider-shift',`${Math.min(135,scrollY*.13).toFixed(0)}px`);
+  spiders.querySelectorAll('.dangling-spider').forEach((el,i)=>{const journey=(scrollY*(.17+i*.025)+(i*91))%Math.max(270,innerHeight*.62);el.style.setProperty('--drop',`${Math.round(45+journey)}px`)});
 }
 function queueFlight(){if(!flightFrame)flightFrame=requestAnimationFrame(updateFlight)}
 addEventListener('scroll',queueFlight,{passive:true});addEventListener('resize',queueFlight);reducedMotion.addEventListener('change',queueFlight);
 const autoBtn=document.getElementById('autoScrollButton');let autoFrame=0,lastFrame=0,autoScrolling=false;
 function stopAuto(){autoScrolling=false;cancelAnimationFrame(autoFrame);autoFrame=0;lastFrame=0;autoBtn.textContent='▶ Scroll';autoBtn.setAttribute('aria-label','Lanjutkan scroll otomatis');autoBtn.setAttribute('aria-pressed','false')}
-function autoTick(time){if(!autoScrolling)return;if(lastFrame){const amount=Math.min(55,(time-lastFrame)*.035);window.scrollBy(0,amount);if(scrollY+innerHeight>=document.documentElement.scrollHeight-3){stopAuto();return}}lastFrame=time;autoFrame=requestAnimationFrame(autoTick)}
-function startAuto(){if(reducedMotion.matches)return;autoScrolling=true;autoBtn.textContent='Ⅱ Scroll';autoBtn.setAttribute('aria-label','Jeda scroll otomatis');autoBtn.setAttribute('aria-pressed','true');autoFrame=requestAnimationFrame(autoTick)}
-autoBtn.addEventListener('click',()=>autoScrolling?stopAuto():startAuto());
-for(const type of ['wheel','touchstart','keydown'])addEventListener(type,event=>{if(type==='keydown'&&!['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(event.key))return;if(autoScrolling)stopAuto()},{passive:true});
+function autoTick(time){if(!autoScrolling)return;const page=document.scrollingElement;if(lastFrame){const amount=Math.min(26,(time-lastFrame)*.12);page.scrollTop=Math.min(page.scrollHeight-innerHeight,page.scrollTop+amount);if(page.scrollTop+innerHeight>=page.scrollHeight-3){stopAuto();return}}lastFrame=time;autoFrame=requestAnimationFrame(autoTick)}
+function startAuto(explicit=false){if(reducedMotion.matches&&!explicit)return;autoScrolling=true;autoBtn.textContent='Ⅱ Scroll';autoBtn.setAttribute('aria-label','Jeda scroll otomatis');autoBtn.setAttribute('aria-pressed','true');autoFrame=requestAnimationFrame(autoTick)}
+autoBtn.addEventListener('click',()=>autoScrolling?stopAuto():startAuto(true));
+for(const type of ['wheel','touchmove','keydown'])addEventListener(type,event=>{if(type==='keydown'&&!['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(event.key))return;if(autoScrolling)stopAuto()},{passive:true});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){if(autoScrolling)stopAuto();if(musicPlaying)stopMusic()}});
-document.getElementById('open').addEventListener('click',()=>{main.inert=false;cover.classList.add('closed');btn.hidden=false;autoBtn.hidden=false;startMusic();setTimeout(()=>{cover.hidden=true;queueFlight();if(!window.__INVITATION_PREVIEW__&&!reducedMotion.matches)startAuto()},850)});
+document.getElementById('open').addEventListener('click',()=>{main.inert=false;cover.classList.add('closed');btn.hidden=false;autoBtn.hidden=false;if(reducedMotion.matches)stopAuto();startMusic();setTimeout(()=>{cover.hidden=true;queueFlight();if(!window.__INVITATION_PREVIEW__&&!reducedMotion.matches)startAuto()},850)});
 })();
