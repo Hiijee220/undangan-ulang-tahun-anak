@@ -95,3 +95,11 @@ html.auto-reading{scroll-behavior:auto!important}
 .gift{position:relative;overflow:hidden}.gift::before{content:"";position:absolute;left:-8%;top:-12%;width:min(34vw,410px);height:115%;background:url('images/spider-hero.jpeg') center/cover no-repeat;opacity:.32;mask-image:radial-gradient(ellipse,#000 20%,transparent 77%);pointer-events:none}.gift>*{position:relative;z-index:1}
 footer{position:relative;overflow:hidden}footer::before{content:"";position:absolute;right:-4%;bottom:-20%;width:min(50vw,570px);aspect-ratio:588/330;background:url('images/spider-comic-swing.jpeg') center/cover no-repeat;opacity:.4;mix-blend-mode:screen;mask-image:radial-gradient(ellipse,#000 26%,transparent 78%);pointer-events:none}footer>*{position:relative;z-index:1}
 @media(max-width:760px){.cover::after{width:90vw;right:-30%;height:42%;opacity:.34}.countdown::after{width:55vw;left:-20%;opacity:.34}.event::after{width:62vw;left:-25%;bottom:-8%;opacity:.18}.gallery::after{width:40vw;right:-17%;opacity:.34}.gift::before{width:65vw;left:-30%;opacity:.2}footer::before{width:95vw;right:-37%;opacity:.28}.hero::after{opacity:.31}}
+
+/* Hero title: comic-film energy with live, editable text rather than a baked-in logo. */
+.miracle-title{position:relative;display:block;width:max-content;max-width:100%;margin:20px 0 12px;padding:9px 20px 12px;background:#d52735;clip-path:polygon(3% 0,100% 0,97% 100%,0 100%);box-shadow:inset 0 -6px 0 #8d1528;transform:skew(-7deg)}
+.miracle-title::before{content:"";position:absolute;inset:4px;border:2px solid #ffd875;clip-path:polygon(3% 0,100% 0,97% 100%,0 100%);pointer-events:none}
+.miracle-title-inner{position:relative;display:block;font-family:Impact,'Arial Black','Space Grotesk',sans-serif;font-weight:1000;font-stretch:condensed;font-size:clamp(42px,6.7vw,108px);line-height:1;letter-spacing:.045em;text-transform:uppercase;color:#fff8df;-webkit-text-stroke:1px #fff8df;text-shadow:3px 3px 0 #0b2c5e,6px 6px 0 #082248;transform:skew(7deg) scaleX(.88);transform-origin:left center;overflow-wrap:anywhere}
+.hero-content h2{margin-top:10px}
+.real-spider svg{filter:contrast(1.12) saturate(1.16)}
+@media(max-width:760px){.miracle-title{margin:18px auto 12px;padding:9px 14px 12px}.miracle-title-inner{font-size:clamp(40px,11vw,76px);letter-spacing:.01em;text-shadow:2px 2px 0 #0b2c5e,4px 4px 0 #082248}}
