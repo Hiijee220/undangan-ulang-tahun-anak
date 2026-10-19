@@ -130,3 +130,7 @@ footer{position:relative;overflow:hidden}footer::before{content:"";position:abso
 .wish-card p{white-space:pre-wrap;line-height:1.65;margin:12px 0 0}.wish-feed-note,#wishEmpty{color:#647087;font-size:14px;line-height:1.6}
 @media(max-width:760px){.wishes-layout{grid-template-columns:1fr}.wish-form,.wish-feed{padding:20px}.nav-wishes{margin-right:14px;font-size:11px}.nav-date{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.custom-cover-photo{animation:none;transform:none;will-change:auto}}
+
+.music-panel{position:fixed;z-index:20;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));width:min(340px,calc(100vw - 32px));max-height:calc(100dvh - 110px);overflow:auto;padding:14px;background:#fff;color:var(--ink);border:2px solid var(--blue);border-radius:16px;box-shadow:0 10px 35px #071e4340}
+.music-panel-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.music-panel-heading strong{overflow-wrap:anywhere;font-size:15px}.music-panel-heading button{border:0;background:#edf2fb;color:var(--blue);border-radius:50%;font-size:24px;width:36px;height:36px;flex-shrink:0}
+.music-panel iframe{display:block;width:100%;height:200px;border:0;min-width:200px;min-height:200px}.music-panel p{font-size:13px;line-height:1.5}.music-panel>a{font-size:13px;color:var(--blue);text-decoration:underline}
