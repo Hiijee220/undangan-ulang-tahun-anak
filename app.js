@@ -3,7 +3,7 @@
 const safeURL=(url,protocols=['https:'])=>{if(typeof url!=='string'||!url.trim())return '';try{const u=new URL(url,document.baseURI);return protocols.includes(u.protocol)?u.href:''}catch{return''}};
 const themeAssets=new Set(['spider-swing.jpeg','spider-relax.jpeg','spider-hang.jpeg','spider-hero.jpeg']);
 const isThemeAsset=src=>typeof src==='string'&&themeAssets.has(src.split(/[/?#]/).pop());
-let data;try{const response=await fetch('config.json',{cache:'no-store'});if(!response.ok)throw Error('config');data=await response.json();try{const cloud=window.__INVITATION_PREVIEW__?null:await import('./firebase-store.js');const latest=cloud?await cloud.loadInvitation():null;if(latest?.hero&&latest?.event)data=latest}catch(e){console.warn('Menggunakan undangan cadangan:',e)}}catch{document.body.textContent='Undangan belum dapat dimuat. Coba segarkan halaman.';return}
+let data;try{const response=await fetch('config.json',{cache:'no-store'});if(!response.ok)throw Error('config');data=await response.json();try{const cloud=window.__INVITATION_PREVIEW__?null:await import('./firebase-store.js?v=2');const latest=cloud?await cloud.loadInvitation():null;if(latest?.hero&&latest?.event)data=latest}catch(e){console.warn('Menggunakan undangan cadangan:',e)}}catch{document.body.textContent='Undangan belum dapat dimuat. Coba segarkan halaman.';return}
 const get=path=>path.split('.').reduce((o,k)=>o?.[k],data)??'';
 const setText=(el,value)=>{el.textContent=String(value)};
 document.querySelectorAll('[data-bind]').forEach(el=>setText(el,get(el.dataset.bind)));
@@ -57,6 +57,7 @@ function stopAuto(){autoScrolling=false;cancelAnimationFrame(autoFrame);autoFram
 function autoTick(time){if(!autoScrolling)return;const page=document.scrollingElement,maxScroll=Math.max(0,page.scrollHeight-page.clientHeight);if(lastFrame){const dt=Math.min(64,Math.max(0,time-lastFrame)),readingSpeed=maxScroll/AUTO_READING_SECONDS;autoSpeed+=(readingSpeed-autoSpeed)*Math.min(1,dt/500);autoTarget=Math.min(maxScroll,autoTarget+autoSpeed*dt/1000);page.scrollTop=autoTarget;if(page.scrollTop>=maxScroll-1){stopAuto();return}}lastFrame=time;autoFrame=requestAnimationFrame(autoTick)}
 function startAuto(explicit=false){if(autoScrolling||(reducedMotion.matches&&!explicit))return;document.documentElement.classList.add('auto-reading');const page=document.scrollingElement;if(page.scrollTop+page.clientHeight>=page.scrollHeight-4)page.scrollTop=0;autoTarget=page.scrollTop;autoSpeed=0;autoScrolling=true;autoBtn.textContent='Ⅱ Scroll';autoBtn.setAttribute('aria-label','Jeda scroll otomatis');autoBtn.setAttribute('aria-pressed','true');autoFrame=requestAnimationFrame(autoTick)}
 reducedMotion.addEventListener('change',()=>{if(reducedMotion.matches&&autoScrolling)stopAuto()});
+document.addEventListener('invitation:pause-scroll',stopAuto);
 autoBtn.addEventListener('click',()=>autoScrolling?stopAuto():startAuto(true));
 document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',()=>{if(autoScrolling)stopAuto()}));
 for(const type of ['wheel','touchmove','keydown'])addEventListener(type,event=>{if(type==='keydown'&&!['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(event.key))return;if(autoScrolling)stopAuto()},{passive:true});

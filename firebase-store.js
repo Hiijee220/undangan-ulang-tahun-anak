@@ -1,6 +1,6 @@
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
 import {getAuth,GoogleAuthProvider,onAuthStateChanged,signInWithPopup,signOut} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
-import {getFirestore,doc,getDoc,runTransaction} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
+import {getFirestore,doc,getDoc,runTransaction,collection,query,orderBy,limit,onSnapshot,addDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
 
 const app=initializeApp({
   apiKey:'AIzaSyDIM6a1PYX8MLMObyLaP6HtOdH0LIK8vdQ',
@@ -41,4 +41,16 @@ export async function publishInvitation(content,expected){
     if(JSON.stringify(canonical(current))!==JSON.stringify(canonical(expected)))throw Error('Undangan sudah diperbarui dari perangkat lain. Unduh cadangan konsep, lalu muat ulang admin.');
     transaction.set(contentRef,{content,revision:(snapshot.exists()?snapshot.data().revision||0:0)+1,updatedAt:Date.now()});
   });
+}
+
+const wishesRef=collection(db,'birthdayWishes');
+export function watchWishes(onChange,onError){
+  return onSnapshot(query(wishesRef,orderBy('createdAt','desc'),limit(50)),snapshot=>{
+    onChange(snapshot.docs.map(item=>({id:item.id,...item.data()})));
+  },onError);
+}
+export async function sendWish(name,message){
+  name=String(name||'').trim();message=String(message||'').trim();
+  if(!name||name.length>80||!message||message.length>1000)throw Error('Isi nama (maksimal 80 karakter) dan ucapan (maksimal 1.000 karakter).');
+  await addDoc(wishesRef,{name,message,createdAt:serverTimestamp()});
 }

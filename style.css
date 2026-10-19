@@ -110,3 +110,23 @@ footer{position:relative;overflow:hidden}footer::before{content:"";position:abso
 .hero-content h2{margin-top:10px}
 .real-spider svg{filter:contrast(1.12) saturate(1.16)}
 @media(max-width:760px){.miracle-title{margin:18px auto 12px;padding:9px 14px 12px}.miracle-title-inner{font-size:clamp(40px,11vw,76px);letter-spacing:.01em;text-shadow:2px 2px 0 #0b2c5e,4px 4px 0 #082248}}
+
+/* A gentle portrait float and a shared birthday guestbook. */
+.custom-cover-photo{animation:cover-portrait-float 5s ease-in-out infinite;transform-origin:50% 65%;will-change:transform}
+@keyframes cover-portrait-float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-9px) rotate(2deg)}}
+.nav-wishes{font-size:12px;font-weight:800;color:var(--red);margin-left:auto;margin-right:24px}
+.wishes{background:var(--cream);text-align:center;scroll-margin-top:20px}
+.wishes-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;max-width:1050px;margin:36px auto 0;text-align:left;align-items:start}
+.wish-form,.wish-feed{min-width:0;padding:26px;background:#fff;border:2px solid #dce5f2;border-radius:20px;box-shadow:6px 8px 0 #b9cce966}
+.wish-form{display:grid;gap:12px}
+.wish-form label{font-weight:800}
+.wish-form input,.wish-form textarea{display:block;min-width:0;width:100%;font:inherit;color:var(--ink);padding:13px;border:1px solid #a9b9cf;border-radius:10px;background:#fff;resize:vertical}
+.wish-form input:focus,.wish-form textarea:focus{outline:3px solid var(--gold);outline-offset:2px}
+.wish-form .btn{margin-top:6px}.wish-form button:disabled{opacity:.6;cursor:wait}
+#wishStatus{font-size:14px;line-height:1.6;margin:5px 0 0}
+.wish-feed h3{margin:0 0 20px;color:var(--blue)}#wishList{list-style:none;padding:0;margin:0;max-height:620px;overflow-y:auto;overscroll-behavior:contain}
+.wish-card{padding:18px 0;border-top:1px solid #e2e8f0;overflow-wrap:anywhere}
+.wish-card strong{color:var(--blue)}.wish-card time{display:block;font-size:12px;color:#647087;margin-top:5px}
+.wish-card p{white-space:pre-wrap;line-height:1.65;margin:12px 0 0}.wish-feed-note,#wishEmpty{color:#647087;font-size:14px;line-height:1.6}
+@media(max-width:760px){.wishes-layout{grid-template-columns:1fr}.wish-form,.wish-feed{padding:20px}.nav-wishes{margin-right:14px;font-size:11px}.nav-date{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.custom-cover-photo{animation:none;transform:none;will-change:auto}}
