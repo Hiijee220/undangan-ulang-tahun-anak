@@ -44,9 +44,8 @@ document.getElementById('publish').onclick=async()=>{if(!signedIn)return status(
 
 const guestName=document.getElementById('guestName'),guestLink=document.getElementById('guestLink'),guestMessage=document.getElementById('guestMessage'),guestStatus=document.getElementById('guestShareStatus');
 function updateGuestShare(){
-  const name=guestName.value.trim(),url=new URL('matthew-miracle-joel-momongan.html',location.href);
+  const name=guestName.value.trim(),url=new URL('./',location.href);
   if(name)url.searchParams.set('to',name);
-  url.searchParams.set('v','birthday2');
   guestLink.value=url.href;
   const child=String(data.hero.name||'si kecil').trim();
   guestMessage.value=(name?'Kepada Yth. '+name+'\n\n':'')+'Dengan penuh sukacita, kami mengundang Anda merayakan ulang tahun '+child+'.\n\nSilakan buka undangan berikut:\n'+url.href+'\n\nKehadiran dan doa Anda sangat berarti bagi kami. Terima kasih!';
