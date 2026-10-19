@@ -10,14 +10,14 @@
 .cover-inner{z-index:2}.cover-inner h1,.cover-inner .cover-kicker{text-shadow:0 4px 30px #0c285e}
 .portrait-frame{animation:hero-float 4.5s ease-in-out infinite;transform:rotate(6deg)}
 .portrait-frame img{transition:transform .5s ease;object-position:center 45%}.portrait-frame:hover img{transform:scale(1.06)}
-.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:970px;margin-left:auto;margin-right:auto;gap:31px}
+.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:970px;margin-left:auto;margin-right:auto;gap:31px;align-items:start}
 .gallery-item{transform:rotate(-2deg);animation:photo-drift 4.8s ease-in-out infinite alternate;transition:box-shadow .3s}
 .gallery-item:nth-child(2n){transform:rotate(2deg);animation-delay:-2.2s;animation-name:photo-drift-even}
-.gallery-item img{aspect-ratio:16/10;object-fit:cover;object-position:center;transition:transform .45s ease,filter .45s ease}
+.gallery-item img{height:auto;aspect-ratio:auto;object-fit:contain;object-position:center;background:#fff;transition:filter .45s ease}
 .gallery-item:nth-child(2) img{object-position:center 48%}
-.gallery-item:nth-child(n+3) img{aspect-ratio:4/5;object-fit:contain;background:#fff}
+
 .gallery-item:nth-child(4) img{background:#cbe8f0}
-.gallery-item:hover{box-shadow:12px 16px 0 #9db7df}.gallery-item:hover img{transform:scale(1.025);filter:saturate(1.14)}
+.gallery-item:hover{box-shadow:12px 16px 0 #9db7df}.gallery-item:hover img{filter:saturate(1.14)}
 .gallery-item:nth-child(3){animation-name:photo-hang;transform-origin:50% -5%}
 @keyframes cover-swing{from{transform:rotate(-7deg) translateY(3px)}to{transform:rotate(4deg) translateY(-13px)}}
 @keyframes hero-float{0%,100%{transform:rotate(5deg) translateY(0)}50%{transform:rotate(7deg) translateY(-16px)}}
@@ -25,13 +25,20 @@
 @keyframes photo-drift-even{from{transform:rotate(2deg) translateY(-4px)}to{transform:rotate(3deg) translateY(8px)}}
 @keyframes photo-hang{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
 @media(max-width:760px){.cover-figure{width:min(58vw,300px);bottom:3%;right:-9%;opacity:.43}.cover-inner{padding-bottom:35px}.gallery-grid{gap:20px}}
-@media(max-width:480px){.gallery-grid{grid-template-columns:1fr;max-width:340px;gap:25px}.gallery-item img{aspect-ratio:16/10}.gallery-item:nth-child(n+3) img{aspect-ratio:4/5}.cover-figure{right:-15%;bottom:5%;width:65vw;opacity:.3}}
+@media(max-width:480px){.gallery-grid{grid-template-columns:1fr;max-width:340px;gap:25px}.cover-figure{right:-15%;bottom:5%;width:65vw;opacity:.3}}
 @media(prefers-reduced-motion:reduce){.cover-figure,.portrait-frame,.gallery-item{animation:none!important}.gallery-item,.gallery-item:nth-child(2n),.gallery-item:nth-child(3){transform:none!important}}
 
 /* Supplied artwork lives in the scenery, leaving child-photo slots untouched. */
 .cover-figure{z-index:0;right:-5%;bottom:-8%;width:min(73vw,920px);opacity:.85;filter:none;mask-image:radial-gradient(ellipse at 52% 52%,#000 32%,transparent 77%)}
 .cover-figure img{border:0;border-radius:0;transform:none}.cover-inner{z-index:2}
-.custom-cover-photo{position:absolute;left:4%;bottom:8%;z-index:1;width:min(22vw,280px);aspect-ratio:4/5;transform:rotate(-8deg);border:8px solid #fff;border-radius:28px;overflow:hidden;box-shadow:12px 18px 0 #d52735aa}.custom-cover-photo img{width:100%;height:100%;object-fit:cover}
+.custom-cover-photo{position:relative;z-index:1;width:clamp(190px,52vw,280px);max-width:100%;margin:22px auto 28px;padding:7px;background:#fff;border-radius:18px;box-shadow:8px 10px 0 #d52735aa}
+.custom-cover-photo img{display:block;width:100%;height:auto;max-height:38svh;object-fit:contain;border-radius:11px}
+.cover:has(.custom-cover-photo:not([hidden])) .medallion,.cover:has(.custom-cover-photo:not([hidden])) .envelope{display:none}
+.cover:has(.custom-cover-photo:not([hidden])) h1{font-size:clamp(36px,9vw,64px);line-height:1.02;margin:12px 0 18px}
+.cover:has(.custom-cover-photo:not([hidden])) .cover-inner{padding-bottom:8px}
+.portrait-frame:has(img:not([hidden])){aspect-ratio:auto;border-radius:22px}
+.portrait-frame img:not([hidden]){display:block;height:auto;object-fit:contain}
+.portrait-frame:hover img{transform:none}
 .hero::before{content:"";position:absolute;right:-8%;top:5%;width:70%;height:86%;background:url('images/spider-swing.jpeg') center/cover no-repeat;opacity:.28;mask-image:radial-gradient(ellipse at center,#000 38%,transparent 75%);pointer-events:none}
 .intro::after{content:"";position:absolute;right:-3%;top:-5%;width:clamp(210px,31vw,420px);aspect-ratio:367/549;background:url('images/spider-hang.jpeg') right top/contain no-repeat;opacity:.9;mix-blend-mode:multiply;pointer-events:none;mask-image:linear-gradient(to bottom,#000 65%,transparent 99%);animation:hang-greet 5s ease-in-out infinite alternate}
 .intro .section-heading,.intro .lead,.intro .signoff{position:relative;z-index:1}
@@ -45,7 +52,7 @@ body:has(.scroll-spider:not([hidden])) .intro::after{opacity:.12}
 .scroll-spider{position:fixed;left:0;top:0;width:330px;aspect-ratio:557/359;z-index:8;pointer-events:none;transform-origin:72% 54%;transform:rotate(var(--swing-tilt, 0deg));transition:left .13s ease-out,top .13s ease-out,transform .13s ease-out;will-change:left,top,transform;filter:drop-shadow(3px 9px 7px #091c4780)}
 .scroll-spider svg{display:block;width:100%;height:100%;overflow:visible}
 @keyframes hang-greet{from{transform:rotate(-3deg)}to{transform:rotate(3deg) translateY(10px)}}
-@media(max-width:760px){.cover-figure{right:-35%;bottom:0;width:115vw;opacity:.42}.custom-cover-photo{width:28vw;left:-7%;bottom:4%;opacity:.42}.hero::before{width:110%;right:-35%;opacity:.19}.intro::after{right:-120px;top:8px;width:280px;opacity:.55}.countdown::before{width:100%;opacity:.33}.event::before{width:70vw;opacity:.13}.gallery::before{width:110vw;opacity:.16}.rsvp::after{right:-120px;bottom:-24%;width:350px;opacity:.27}.scroll-spider{width:250px}}
+@media(max-width:760px){.cover-figure{right:-35%;bottom:0;width:115vw;opacity:.42}.hero::before{width:110%;right:-35%;opacity:.19}.intro::after{right:-120px;top:8px;width:280px;opacity:.55}.countdown::before{width:100%;opacity:.33}.event::before{width:70vw;opacity:.13}.gallery::before{width:110vw;opacity:.16}.rsvp::after{right:-120px;bottom:-24%;width:350px;opacity:.27}.scroll-spider{width:250px}}
 @media(prefers-reduced-motion:reduce){.scroll-spider,.flight-web{display:none!important}.intro::after,.rsvp::after{animation:none!important}}
 
 /* New supplied artwork: comic panels form the scenery, not the child's portrait. */
