@@ -152,3 +152,8 @@ footer{position:relative;overflow:hidden}footer::before{content:"";position:abso
 }
 @media(max-width:480px){.event-card::before{width:122px}.event-card::after{width:18px;height:22px;right:4px}}
 @media(prefers-reduced-motion:reduce){.event-card::after{animation:none;top:24px;transform:none}}
+
+/* Inverted realistic character: the animated silk attaches to the joined feet. */
+.real-spider{width:168px;aspect-ratio:138/180;transform-origin:55.1% 3.33%}
+.real-spider svg{filter:none}
+@media(max-width:760px){.real-spider{width:120px}}
