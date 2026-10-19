@@ -157,3 +157,7 @@ footer{position:relative;overflow:hidden}footer::before{content:"";position:abso
 .real-spider{width:168px;aspect-ratio:138/180;transform-origin:55.1% 3.33%}
 .real-spider svg{filter:none}
 @media(max-width:760px){.real-spider{width:120px}}
+
+/* Native alpha keeps costume edges and empty spaces clean on every section color. */
+.real-spider{aspect-ratio:480/660;transform-origin:42.917% .909%}
+.real-spider svg{filter:none;mask-image:none}
