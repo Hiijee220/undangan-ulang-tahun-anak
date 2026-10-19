@@ -3,7 +3,7 @@
 const safeURL=(url,protocols=['https:'])=>{if(typeof url!=='string'||!url.trim())return '';try{const u=new URL(url,document.baseURI);return protocols.includes(u.protocol)?u.href:''}catch{return''}};
 const themeAssets=new Set(['spider-swing.jpeg','spider-relax.jpeg','spider-hang.jpeg','spider-hero.jpeg']);
 const isThemeAsset=src=>typeof src==='string'&&themeAssets.has(src.split(/[/?#]/).pop());
-let data;try{const response=await fetch('config.json',{cache:'no-store'});if(!response.ok)throw Error('config');data=await response.json();try{const cloud=window.__INVITATION_PREVIEW__?null:await import('./firebase-store.js?v=2');const latest=cloud?await cloud.loadInvitation():null;if(latest?.hero&&latest?.event)data=latest}catch(e){console.warn('Menggunakan undangan cadangan:',e)}}catch{document.body.textContent='Undangan belum dapat dimuat. Coba segarkan halaman.';return}
+let data;try{const response=await fetch('config.json',{cache:'no-store'});if(!response.ok)throw Error('config');data=await response.json();try{const cloud=window.__INVITATION_PREVIEW__?null:await import('./public-data.js?v=1');const latest=cloud?await cloud.loadPublicInvitation():null;if(latest?.hero&&latest?.event)data=latest}catch(e){console.warn('Menggunakan undangan cadangan:',e)}}catch{document.body.textContent='Undangan belum dapat dimuat. Coba segarkan halaman.';return}
 const get=path=>path.split('.').reduce((o,k)=>o?.[k],data)??'';
 const setText=(el,value)=>{el.textContent=String(value)};
 document.querySelectorAll('[data-bind]').forEach(el=>setText(el,get(el.dataset.bind)));
