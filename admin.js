@@ -27,4 +27,29 @@ store.onAdminChange(user=>{signedIn=Boolean(user);connection.hidden=signedIn;con
 document.getElementById('connect').onclick=async()=>{const button=document.getElementById('connect');button.disabled=true;try{await store.loginAdmin();status('Login berhasil. Kini Anda dapat menyimpan langsung tanpa token GitHub.')}catch(e){status('Login gagal: '+e.message,true)}finally{button.disabled=false}};
 document.getElementById('disconnect').onclick=async()=>{await store.logoutAdmin();status('Anda telah keluar dari admin. Konsep di browser tetap tersimpan.')};
 document.getElementById('publish').onclick=async()=>{if(!signedIn)return status('Masuk dengan Google terlebih dahulu.',true);const button=document.getElementById('publish');button.disabled=true;status('Menyimpan perubahan ke Firebase...');try{await store.publishInvitation(data,published);published=structuredClone(data);base=JSON.stringify(published);localStorage.removeItem(DRAFT);localStorage.removeItem('birthday-invitation-draft-v1');status('Undangan berhasil diperbarui. Tamu yang membuka halaman akan langsung melihat versi terbaru.')}catch(e){status('Gagal menyimpan: '+e.message,true)}finally{button.disabled=!signedIn}};
+
+const guestName=document.getElementById('guestName'),guestLink=document.getElementById('guestLink'),guestMessage=document.getElementById('guestMessage'),guestStatus=document.getElementById('guestShareStatus');
+function updateGuestShare(){
+  const name=guestName.value.trim(),url=new URL('matthew-miracle-joel-momongan.html',location.href);
+  if(name)url.searchParams.set('to',name);
+  url.searchParams.set('v','birthday2');
+  guestLink.value=url.href;
+  const child=String(data.hero.name||'si kecil').trim();
+  guestMessage.value=(name?'Kepada Yth. '+name+'\n\n':'')+'Dengan penuh sukacita, kami mengundang Anda merayakan ulang tahun '+child+'.\n\nSilakan buka undangan berikut:\n'+url.href+'\n\nKehadiran dan doa Anda sangat berarti bagi kami. Terima kasih!';
+  document.getElementById('openGuestLink').href=url.href;
+  document.getElementById('shareGuestWhatsApp').href='https://wa.me/?text='+encodeURIComponent(guestMessage.value);
+}
+guestName.addEventListener('input',updateGuestShare);
+document.querySelector('[data-path="hero.name"]')?.addEventListener('input',updateGuestShare);
+async function copyGuest(field){
+  updateGuestShare();
+  try{
+    if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(field.value);
+    else{field.focus();field.select();field.setSelectionRange(0,field.value.length);if(!document.execCommand('copy'))throw Error('copy')}
+    guestStatus.textContent='Berhasil disalin. Tempelkan di WhatsApp untuk tamu tersebut.';
+  }catch{field.focus();field.select();field.setSelectionRange(0,field.value.length);guestStatus.textContent='Tekan lama teks yang dipilih, lalu pilih Salin.'}
+}
+document.getElementById('copyGuestLink').addEventListener('click',()=>copyGuest(guestLink));
+document.getElementById('copyGuestMessage').addEventListener('click',()=>copyGuest(guestMessage));
+updateGuestShare();
 })();
